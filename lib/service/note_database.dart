@@ -1,4 +1,4 @@
-import 'package:supabase/model/note.dart';
+import 'package:my_supabase_app/model/note.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class NoteDatabase {
@@ -10,11 +10,11 @@ class NoteDatabase {
 
   final stream = Supabase.instance.client
       .from('notes')
-      .strem(primaryKey: ['id'])
+      .stream(primaryKey: ['id'])
       .map((data) => data.map((noteMap) => Note.fromMap(noteMap)).toList());
 
   Future<void> updateNote(Note note, String content) async {
-    await database.update({'content': content}).eq('id', note.id);
+    await database.update({'content': content}).eq('id', note.id!);
   }
 
   Future<void> deleteNote(Note note) async {
