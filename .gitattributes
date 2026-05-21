@@ -1,0 +1,14 @@
+# Ignore all native platform folders from language statistics
+android/** linguist-vendored
+ios/** linguist-vendored
+macos/** linguist-vendored
+windows/** linguist-vendored
+linux/** linguist-vendored
+web/** linguist-vendored
+
+# Also ignore generated Dart files (like from build_runner)
+**.g.dart linguist-generated
+**.freezed.dart linguist-generated
+
+# Ensure .dart files are always detected
+**.dart linguist-detectable=true
