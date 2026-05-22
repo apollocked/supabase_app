@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_supabase_app/presentation/auth/signup_page.dart';
+import 'package:my_supabase_app/presentation/auth/signin_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -23,7 +23,7 @@ class MySupabaseApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const SignUpPage(),
+      home: const SignInPage(),
     );
   }
 }

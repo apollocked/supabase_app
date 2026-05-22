@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_supabase_app/presentation/auth/signin_page.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -101,7 +102,14 @@ class _SignUpPageState extends State<SignUpPage> {
                   children: [
                     const Text('Already have an account?'),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const SignInPage(),
+                          ),
+                        );
+                      },
                       child: const Text(
                         'Sign In',
                         style: TextStyle(color: Colors.purple),
