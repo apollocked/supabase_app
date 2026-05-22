@@ -29,7 +29,9 @@ class _SignInPageState extends State<SignInPage> {
         (route) => false,
       );
     } on AuthException catch (error) {
-      print(error.message);
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(error.message)));
     }
   }
 
@@ -106,7 +108,7 @@ class _SignInPageState extends State<SignInPage> {
                     ),
                   ),
                   child: const Text(
-                    'Sign Ip',
+                    'Sign In',
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
@@ -124,7 +126,7 @@ class _SignInPageState extends State<SignInPage> {
                         );
                       },
                       child: const Text(
-                        'Sign Un',
+                        'Sign Up',
                         style: TextStyle(color: Colors.purple),
                       ),
                     ),

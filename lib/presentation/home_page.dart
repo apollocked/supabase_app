@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_supabase_app/model/note.dart';
+import 'package:my_supabase_app/presentation/auth/signin_page.dart';
 import 'package:my_supabase_app/service/note_database.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,6 +14,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final noteDatabase = NoteDatabase();
   final noteControler = TextEditingController();
+  final supabase = Supabase.instance.client;
 
   //methods
   void updateNote(Note note) {
@@ -101,10 +104,31 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Future<void> signOut() async {
+    await supabase.auth.signOut();
+    if (!mounted) return;
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const SignInPage()),
+      (route) => false,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Home')),
+      appBar: AppBar(
+        title: const Text('Home'),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.logout),
+            onPressed: () {
+              signOut();
+            },
+          ),
+        ],
+      ),
       body: StreamBuilder(
         stream: noteDatabase.stream,
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
