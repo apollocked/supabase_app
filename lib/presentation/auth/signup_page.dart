@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_supabase_app/presentation/auth/signin_page.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -9,9 +10,38 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  final supabase = Supabase.instance.client;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController usernameController = TextEditingController();
+
+  Future<void> signUp() async {
+    try {
+      await supabase.auth.signUp(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+        data: {'username': usernameController.text.trim()},
+      );
+      if (!mounted) {
+        return;
+      }
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const SignInPage()),
+      );
+    } on AuthException catch (error) {
+      print(error.message);
+    }
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    usernameController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,7 +110,9 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    signUp();
+                  },
                   style: ButtonStyle(
                     fixedSize: WidgetStatePropertyAll(Size(350, 50)),
                     backgroundColor: WidgetStatePropertyAll(
