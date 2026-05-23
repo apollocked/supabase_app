@@ -1,7 +1,11 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:my_supabase_app/core/failures.dart';
 import 'package:my_supabase_app/logic/client_provider.dart';
 import 'package:my_supabase_app/presentation/auth/signup_page.dart';
+import 'package:my_supabase_app/presentation/widgets/custom_textfield.dart';
+import 'package:my_supabase_app/presentation/widgets/my_button.dart';
 import 'package:my_supabase_app/presentation/widgets/snackbar.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -17,22 +21,22 @@ class _SignInPageState extends State<SignInPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final supabase = Supabase.instance.client;
+  bool _isLoading = false;
 
   Future<void> signIn() async {
-    if (emailController.text.isEmpty || passwordController.text.isEmpty) {
-      mySnackBar("Please enter email and password", context);
-      return;
-    }
+    if (_isLoading) return;
+    setState(() => _isLoading = true);
     try {
-      context.read<ClientProvider>().signIn(
+      await context.read<ClientProvider>().signIn(
         emailController.text.trim(),
         passwordController.text.trim(),
       );
-      if (!mounted) {
-        return;
-      }
-    } on AuthException catch (error) {
-      failures(context, error);
+    } on AuthException catch (e) {
+      failures(context, e);
+    } catch (e) {
+      mySnackBar("Something went wrong", context);
+    } finally {
+      if (mounted) setState(() => _isLoading = false);
     }
   }
 
@@ -67,52 +71,18 @@ class _SignInPageState extends State<SignInPage> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      TextField(
-                        controller: emailController,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black54),
-                            borderRadius: BorderRadius.all(Radius.circular(8)),
-                          ),
-                          hintText: 'Email',
-                          prefixIcon: Icon(Icons.email),
-                        ),
-                      ),
-                      TextField(
-                        controller: passwordController,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black54),
-                            borderRadius: BorderRadius.all(Radius.circular(8)),
-                          ),
-                          hintText: 'Password',
-                          prefixIcon: Icon(Icons.lock),
-                        ),
-                        obscureText: true,
+                      customTextField(emailController, Icons.email, "Email"),
+                      customTextField(
+                        passwordController,
+                        Icons.lock,
+                        "Password",
+                        isObsecure: true,
                       ),
                     ],
                   ),
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    signIn();
-                  },
-                  style: ButtonStyle(
-                    fixedSize: WidgetStatePropertyAll(Size(350, 50)),
-                    backgroundColor: WidgetStatePropertyAll(
-                      Colors.purpleAccent,
-                    ),
-                    shape: WidgetStatePropertyAll(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                  ),
-                  child: const Text(
-                    'Sign In',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
+                myButton(context, signIn, 'Sign In'),
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

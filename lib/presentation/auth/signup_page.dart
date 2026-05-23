@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:my_supabase_app/core/failures.dart';
 import 'package:my_supabase_app/logic/client_provider.dart';
 import 'package:my_supabase_app/presentation/auth/signin_page.dart';
+import 'package:my_supabase_app/presentation/widgets/custom_textfield.dart';
+import 'package:my_supabase_app/presentation/widgets/my_button.dart';
 import 'package:my_supabase_app/presentation/widgets/snackbar.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -69,76 +71,31 @@ class _SignUpPageState extends State<SignUpPage> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        TextField(
-                          controller: usernameController,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.black54),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(8),
-                              ),
-                            ),
-                            hintText: 'Username',
-                            prefixIcon: Icon(Icons.person),
-                          ),
+                        customTextField(
+                          usernameController,
+                          Icons.person,
+                          'Username',
                         ),
-                        TextField(
-                          controller: emailController,
-                          decoration: const InputDecoration(
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.black54),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(8),
-                              ),
-                            ),
-                            hintText: 'Email',
-                            prefixIcon: Icon(Icons.email),
-                          ),
-                        ),
-                        TextField(
-                          controller: passwordController,
-                          decoration: const InputDecoration(
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.black54),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(8),
-                              ),
-                            ),
-                            hintText: 'Password',
-                            prefixIcon: Icon(Icons.lock),
-                          ),
-                          obscureText: true,
+                        customTextField(emailController, Icons.email, 'Email'),
+                        customTextField(
+                          passwordController,
+                          Icons.lock,
+                          'Password',
+                          isObsecure: true,
                         ),
                       ],
                     ),
                   ),
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    if (emailController.text.isEmpty ||
-                        passwordController.text.isEmpty ||
-                        usernameController.text.isEmpty) {
-                      mySnackBar('Please fill all the fields', context);
-                      return;
-                    }
-                    signUp();
-                  },
-                  style: ButtonStyle(
-                    fixedSize: WidgetStatePropertyAll(Size(350, 50)),
-                    backgroundColor: WidgetStatePropertyAll(
-                      Colors.purpleAccent,
-                    ),
-                    shape: WidgetStatePropertyAll(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                  ),
-                  child: const Text(
-                    'Sign Up',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
+                myButton(context, () {
+                  if (emailController.text.isEmpty ||
+                      passwordController.text.isEmpty ||
+                      usernameController.text.isEmpty) {
+                    mySnackBar('Please fill all the fields', context);
+                    return;
+                  }
+                  signUp();
+                }, 'Sign Up'),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
