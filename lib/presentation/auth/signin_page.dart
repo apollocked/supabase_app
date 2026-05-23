@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:my_supabase_app/core/failures.dart';
+import 'package:my_supabase_app/logic/client_provider.dart';
 import 'package:my_supabase_app/presentation/auth/signup_page.dart';
-import 'package:my_supabase_app/presentation/home_page.dart';
 import 'package:my_supabase_app/presentation/widgets/snackbar.dart';
+import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SignInPage extends StatefulWidget {
@@ -23,20 +24,13 @@ class _SignInPageState extends State<SignInPage> {
       return;
     }
     try {
-      await supabase.auth.signInWithPassword(
-        email: emailController.text.trim(),
-        password: passwordController.text.trim(),
+      context.read<ClientProvider>().signIn(
+        emailController.text.trim(),
+        passwordController.text.trim(),
       );
-
       if (!mounted) {
         return;
       }
-
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (context) => const HomePage()),
-        (route) => false,
-      );
     } on AuthException catch (error) {
       failures(context, error);
     }

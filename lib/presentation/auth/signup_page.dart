@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:my_supabase_app/core/failures.dart';
+import 'package:my_supabase_app/logic/client_provider.dart';
 import 'package:my_supabase_app/presentation/auth/signin_page.dart';
 import 'package:my_supabase_app/presentation/widgets/snackbar.dart';
+import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -19,10 +21,10 @@ class _SignUpPageState extends State<SignUpPage> {
 
   Future<void> signUp() async {
     try {
-      await supabase.auth.signUp(
-        email: emailController.text.trim(),
-        password: passwordController.text.trim(),
-        data: {'username': usernameController.text.trim()},
+      context.read<ClientProvider>().signUp(
+        emailController.text.trim(),
+        passwordController.text.trim(),
+        usernameController.text.trim(),
       );
       if (!mounted) {
         return;

@@ -25,7 +25,7 @@ class MySupabaseApp extends StatelessWidget {
   const MySupabaseApp({super.key});
   @override
   Widget build(BuildContext context) {
-    bool isloggedIn = context.watch<ClientProvider>().isSignedIn();
+    bool isloggedIn = context.watch<ClientProvider>().isSignedIn;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: isloggedIn ? const HomePage() : const SignInPage(),

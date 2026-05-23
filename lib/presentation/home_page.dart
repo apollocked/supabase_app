@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:my_supabase_app/logic/client_provider.dart';
 import 'package:my_supabase_app/model/note.dart';
-import 'package:my_supabase_app/presentation/auth/signin_page.dart';
 import 'package:my_supabase_app/service/note_database.dart';
+import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class HomePage extends StatefulWidget {
@@ -105,13 +106,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> signOut() async {
-    await supabase.auth.signOut();
+    context.read<ClientProvider>().signOut();
     if (!mounted) return;
-    Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(builder: (context) => const SignInPage()),
-      (route) => false,
-    );
   }
 
   @override
