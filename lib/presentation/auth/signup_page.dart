@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:my_supabase_app/core/failures.dart';
 import 'package:my_supabase_app/presentation/auth/signin_page.dart';
+import 'package:my_supabase_app/presentation/widgets/snackbar.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -29,10 +31,8 @@ class _SignUpPageState extends State<SignUpPage> {
         context,
         MaterialPageRoute(builder: (context) => const SignInPage()),
       );
-    } on AuthException catch (error) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text(error.message)));
+    } on AuthException catch (e) {
+      failures(context, e);
     }
   }
 
@@ -113,6 +113,12 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
                 ElevatedButton(
                   onPressed: () {
+                    if (emailController.text.isEmpty ||
+                        passwordController.text.isEmpty ||
+                        usernameController.text.isEmpty) {
+                      mySnackBar('Please fill all the fields', context);
+                      return;
+                    }
                     signUp();
                   },
                   style: ButtonStyle(
