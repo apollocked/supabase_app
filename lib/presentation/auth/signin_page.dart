@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:my_supabase_app/core/failures.dart';
 import 'package:my_supabase_app/presentation/auth/signup_page.dart';
 import 'package:my_supabase_app/presentation/home_page.dart';
+import 'package:my_supabase_app/presentation/widgets/snackbar.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SignInPage extends StatefulWidget {
@@ -16,12 +18,19 @@ class _SignInPageState extends State<SignInPage> {
   final supabase = Supabase.instance.client;
 
   Future<void> signIn() async {
+    if (emailController.text.isEmpty || passwordController.text.isEmpty) {
+      mySnackBar("Please enter email and password", context);
+      return;
+    }
     try {
       await supabase.auth.signInWithPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
-      if (!mounted) return;
+
+      if (!mounted) {
+        return;
+      }
 
       Navigator.pushAndRemoveUntil(
         context,
@@ -29,9 +38,7 @@ class _SignInPageState extends State<SignInPage> {
         (route) => false,
       );
     } on AuthException catch (error) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text(error.message)));
+      failures(context, error);
     }
   }
 
