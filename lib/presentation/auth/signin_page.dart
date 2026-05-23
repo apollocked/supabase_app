@@ -21,13 +21,12 @@ class _SignInPageState extends State<SignInPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final supabase = Supabase.instance.client;
-  bool _isLoading = false;
 
   Future<void> signIn() async {
-    if (_isLoading) return;
-    setState(() => _isLoading = true);
+    final auth = context.read<ClientProvider>();
+    if (auth.isLoading) return;
     try {
-      await context.read<ClientProvider>().signIn(
+      await auth.signIn(
         emailController.text.trim(),
         passwordController.text.trim(),
       );
@@ -35,8 +34,6 @@ class _SignInPageState extends State<SignInPage> {
       failures(context, e);
     } catch (e) {
       mySnackBar("Something went wrong", context);
-    } finally {
-      if (mounted) setState(() => _isLoading = false);
     }
   }
 
@@ -82,7 +79,6 @@ class _SignInPageState extends State<SignInPage> {
                   ),
                 ),
                 myButton(context, signIn, 'Sign In'),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

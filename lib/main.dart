@@ -28,7 +28,7 @@ class MySupabaseApp extends StatelessWidget {
     bool isloggedIn = context.watch<ClientProvider>().isSignedIn;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: isloggedIn ? const HomePage() : const SignInPage(),
+      home: isloggedIn ? HomePage() : const SignInPage(),
     );
   }
 }

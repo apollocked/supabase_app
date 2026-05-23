@@ -6,7 +6,6 @@ dynamic failures(BuildContext context, AuthException e) {
   String errorMessage;
 
   final errorMsgLower = e.message.toLowerCase();
-
   if (errorMsgLower.contains("invalid login credentials")) {
     errorMessage = "The email or password you entered is incorrect.";
   } else if (errorMsgLower.contains("email not confirmed")) {
@@ -16,9 +15,12 @@ dynamic failures(BuildContext context, AuthException e) {
     errorMessage = "A user with this email already exists.";
   } else if (errorMsgLower.contains("weak password")) {
     errorMessage = "Password should be at least 6 characters.";
+  } else if (errorMsgLower.contains("anonymous sign-ins ")) {
+    errorMessage = "Email and Password are Empty ";
   } else {
     errorMessage = e.message;
   }
+
   if (errorMessage.isEmpty) {
     errorMessage = "An error occurred. Please try again.";
   }

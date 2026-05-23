@@ -4,7 +4,6 @@ import 'package:my_supabase_app/logic/client_provider.dart';
 import 'package:my_supabase_app/presentation/auth/signin_page.dart';
 import 'package:my_supabase_app/presentation/widgets/custom_textfield.dart';
 import 'package:my_supabase_app/presentation/widgets/my_button.dart';
-import 'package:my_supabase_app/presentation/widgets/snackbar.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -22,8 +21,10 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController usernameController = TextEditingController();
 
   Future<void> signUp() async {
+    final auth = context.read<ClientProvider>();
+    if (auth.isLoading) return;
     try {
-      context.read<ClientProvider>().signUp(
+      await auth.signUp(
         emailController.text.trim(),
         passwordController.text.trim(),
         usernameController.text.trim(),
@@ -31,10 +32,9 @@ class _SignUpPageState extends State<SignUpPage> {
       if (!mounted) {
         return;
       }
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const SignInPage()),
-      );
+      if (mounted && Navigator.canPop(context)) {
+        Navigator.pop(context);
+      }
     } on AuthException catch (e) {
       failures(context, e);
     }
@@ -88,12 +88,6 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ),
                 myButton(context, () {
-                  if (emailController.text.isEmpty ||
-                      passwordController.text.isEmpty ||
-                      usernameController.text.isEmpty) {
-                    mySnackBar('Please fill all the fields', context);
-                    return;
-                  }
                   signUp();
                 }, 'Sign Up'),
                 Row(
