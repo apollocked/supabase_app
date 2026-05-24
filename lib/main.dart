@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_supabase_app/logic/client_provider.dart';
-import 'package:my_supabase_app/presentation/auth/signin_page.dart';
-import 'package:my_supabase_app/presentation/home_page.dart';
+import 'package:my_supabase_app/presentation/pages/auth/signin_page.dart';
+import 'package:my_supabase_app/presentation/pages/home_page.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';

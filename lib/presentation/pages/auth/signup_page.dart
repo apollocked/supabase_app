@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_supabase_app/core/failures.dart';
 import 'package:my_supabase_app/logic/client_provider.dart';
-import 'package:my_supabase_app/presentation/auth/signin_page.dart';
+import 'package:my_supabase_app/presentation/pages/auth/signin_page.dart';
 import 'package:my_supabase_app/presentation/widgets/custom_textfield.dart';
 import 'package:my_supabase_app/presentation/widgets/my_button.dart';
 import 'package:provider/provider.dart';

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_supabase_app/logic/client_provider.dart';
 import 'package:my_supabase_app/model/note.dart';
-import 'package:my_supabase_app/service/note_service.dart';
+import 'package:my_supabase_app/presentation/pages/upload_page.dart';
+import 'package:my_supabase_app/helpers/note_service.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -9,10 +10,19 @@ class HomePage extends StatelessWidget {
   const HomePage({super.key});
   @override
   Widget build(BuildContext context) {
-    NoteService noteService = NoteService();
+    NoteHelperMethods noteHelperMethods = NoteHelperMethods();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => UploadPage()),
+            );
+          },
+          icon: const Icon(Icons.drive_folder_upload),
+        ),
         centerTitle: true,
         actions: [
           IconButton(
@@ -35,7 +45,7 @@ class HomePage extends StatelessWidget {
           Divider(),
           Expanded(
             child: StreamBuilder<List<Note>>(
-              stream: noteService.noteDatabase.stream,
+              stream: noteHelperMethods.noteDatabase.stream,
               builder:
                   (BuildContext context, AsyncSnapshot<List<Note>> snapshot) {
                     if (snapshot.hasError) {
@@ -58,13 +68,13 @@ class HomePage extends StatelessWidget {
                                 IconButton(
                                   icon: const Icon(Icons.edit),
                                   onPressed: () {
-                                    noteService.updateNote(note, context);
+                                    noteHelperMethods.updateNote(note, context);
                                   },
                                 ),
                                 IconButton(
                                   icon: const Icon(Icons.delete),
                                   onPressed: () {
-                                    noteService.deleteNote(note, context);
+                                    noteHelperMethods.deleteNote(note, context);
                                   },
                                 ),
                               ],
@@ -82,7 +92,7 @@ class HomePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          noteService.createNote(context, 'New Note');
+          noteHelperMethods.createNote(context, 'New Note');
         },
         child: Icon(Icons.add),
       ),
