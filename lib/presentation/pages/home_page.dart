@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_supabase_app/logic/client_provider.dart';
 import 'package:my_supabase_app/model/note.dart';
 import 'package:my_supabase_app/presentation/pages/upload_page.dart';
-import 'package:my_supabase_app/helpers/note_service.dart';
+import 'package:my_supabase_app/helpers/note_helper_methods.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 

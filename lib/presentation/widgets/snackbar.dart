@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 
 ScaffoldFeatureController<SnackBar, SnackBarClosedReason> mySnackBar(
   String message,
-  BuildContext context,
-) {
-  return ScaffoldMessenger.of(context).showSnackBar(
+  BuildContext? context, {
+  Color color = Colors.black,
+}) {
+  return ScaffoldMessenger.of(context as BuildContext).showSnackBar(
     SnackBar(
       content: Text(message),
-      backgroundColor: Colors.red,
+      backgroundColor: color,
       behavior: SnackBarBehavior.floating,
       margin: const EdgeInsets.all(8),
       padding: const EdgeInsets.all(8),

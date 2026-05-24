@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_supabase_app/model/note.dart';
 import 'package:my_supabase_app/presentation/widgets/custom_dialog.dart';
-import 'package:my_supabase_app/service/note_database.dart';
+import 'package:my_supabase_app/service/note_database_service.dart';
 
 class NoteHelperMethods {
   final noteDatabase = NoteDatabase();

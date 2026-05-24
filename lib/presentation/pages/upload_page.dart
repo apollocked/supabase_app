@@ -1,7 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:my_supabase_app/presentation/widgets/gallery_widget.dart';
 import 'package:my_supabase_app/presentation/widgets/snackbar.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -39,8 +42,12 @@ class _UploadPageState extends State<UploadPage> {
         .from('uploads')
         .upload(path, imageFile!)
         .then((value) async {
-          mySnackBar("Image uploaded successfuly", context);
-          await Future.delayed(const Duration(seconds: 2));
+          mySnackBar(
+            "Image uploaded successfuly",
+            context,
+            color: Colors.green,
+          );
+          await Future.delayed(const Duration(seconds: 1));
           Navigator.pop(context);
         });
   }
@@ -48,17 +55,17 @@ class _UploadPageState extends State<UploadPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.amber,
+      appBar: AppBar(),
       body: SafeArea(
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: imageFile != null
-                ? [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: imageFile != null
+                  ? [
+                      Container(
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.black54, width: 2),
                           borderRadius: BorderRadius.circular(16),
@@ -68,21 +75,26 @@ class _UploadPageState extends State<UploadPage> {
                           child: Image.file(imageFile!, fit: BoxFit.cover),
                         ),
                       ),
-                    ),
-
-                    ElevatedButton(
-                      onPressed: uploadImage,
-                      child: const Text('Upload'),
-                    ),
-                  ]
-                : [
-                    const Text('No Image Uploaded yet'),
-
-                    ElevatedButton(
-                      onPressed: pickImage,
-                      child: const Text('Pick Image'),
-                    ),
-                  ],
+                      ElevatedButton(
+                        onPressed: uploadImage,
+                        child: const Text('Upload'),
+                      ),
+                    ]
+                  : [
+                      Container(
+                        height: 615,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black54, width: 2),
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: GalleryWidget(),
+                      ),
+                      ElevatedButton(
+                        onPressed: pickImage,
+                        child: const Text('Pick Image'),
+                      ),
+                    ],
+            ),
           ),
         ),
       ),

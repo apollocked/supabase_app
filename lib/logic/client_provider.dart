@@ -15,13 +15,12 @@ class ClientProvider extends ChangeNotifier {
 
   Future<void> signIn(String email, String password) async {
     isLoading = true;
-    notifyListeners(); // Notify UI that loading started
+    notifyListeners();
     try {
       await client.auth.signInWithPassword(email: email, password: password);
     } finally {
-      // 'finally' runs whether the code succeeded OR failed
       isLoading = false;
-      notifyListeners(); // Notify UI that loading stopped
+      notifyListeners();
     }
   }
 
