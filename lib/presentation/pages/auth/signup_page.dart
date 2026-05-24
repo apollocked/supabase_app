@@ -1,14 +1,17 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:my_supabase_app/core/failures.dart';
 import 'package:my_supabase_app/logic/client_provider.dart';
-import 'package:my_supabase_app/presentation/pages/auth/signin_page.dart';
 import 'package:my_supabase_app/presentation/widgets/custom_textfield.dart';
 import 'package:my_supabase_app/presentation/widgets/my_button.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
+  final void Function()? onTap; // Add this
+
+  const SignUpPage({super.key, required this.onTap});
 
   @override
   State<SignUpPage> createState() => _SignUpPageState();
@@ -20,21 +23,17 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController usernameController = TextEditingController();
 
+  // Inside SignUpPage
   Future<void> signUp() async {
     final auth = context.read<ClientProvider>();
     if (auth.isLoading) return;
+
     try {
       await auth.signUp(
         emailController.text.trim(),
         passwordController.text.trim(),
         usernameController.text.trim(),
       );
-      if (!mounted) {
-        return;
-      }
-      if (mounted && Navigator.canPop(context)) {
-        Navigator.pop(context);
-      }
     } on AuthException catch (e) {
       failures(context, e);
     }
@@ -95,14 +94,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   children: [
                     const Text('Already have an account?'),
                     TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const SignInPage(),
-                          ),
-                        );
-                      },
+                      onPressed: widget.onTap,
                       child: const Text(
                         'Sign In',
                         style: TextStyle(color: Colors.purple),

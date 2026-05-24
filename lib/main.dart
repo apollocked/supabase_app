@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_supabase_app/logic/client_provider.dart';
-import 'package:my_supabase_app/presentation/pages/auth/signin_page.dart';
+import 'package:my_supabase_app/presentation/pages/auth/login_or_register.dart';
 import 'package:my_supabase_app/presentation/pages/home_page.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -28,7 +28,7 @@ class MySupabaseApp extends StatelessWidget {
     bool isloggedIn = context.watch<ClientProvider>().isSignedIn;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: isloggedIn ? HomePage() : const SignInPage(),
+      home: isloggedIn ? HomePage() : const LoginOrRegisterPage(),
     );
   }
 }

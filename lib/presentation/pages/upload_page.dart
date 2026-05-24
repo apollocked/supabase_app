@@ -38,18 +38,20 @@ class _UploadPageState extends State<UploadPage> {
     final path =
         '${Supabase.instance.client.auth.currentUser!.id}/$filename.jpg';
 
-    await Supabase.instance.client.storage
-        .from('uploads')
-        .upload(path, imageFile!)
-        .then((value) async {
-          mySnackBar(
-            "Image uploaded successfuly",
-            context,
-            color: Colors.green,
-          );
-          await Future.delayed(const Duration(seconds: 1));
-          Navigator.pop(context);
-        });
+    try {
+      await Supabase.instance.client.storage
+          .from('uploads')
+          .upload(path, imageFile!);
+      if (!mounted) return;
+      mySnackBar("Image uploaded successfully", context, color: Colors.green);
+      setState(() {
+        imageFile = null;
+      });
+    } catch (e) {
+      if (mounted) {
+        mySnackBar("Upload failed: $e", context, color: Colors.red);
+      }
+    }
   }
 
   @override
@@ -82,7 +84,7 @@ class _UploadPageState extends State<UploadPage> {
                     ]
                   : [
                       Container(
-                        height: 615,
+                        height: 630,
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.black54, width: 2),
                           borderRadius: BorderRadius.circular(16),

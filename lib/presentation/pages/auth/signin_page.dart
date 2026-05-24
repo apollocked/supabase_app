@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_supabase_app/core/failures.dart';
 import 'package:my_supabase_app/logic/client_provider.dart';
-import 'package:my_supabase_app/presentation/pages/auth/signup_page.dart';
 import 'package:my_supabase_app/presentation/widgets/custom_textfield.dart';
 import 'package:my_supabase_app/presentation/widgets/my_button.dart';
 import 'package:my_supabase_app/presentation/widgets/snackbar.dart';
@@ -11,7 +10,9 @@ import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SignInPage extends StatefulWidget {
-  const SignInPage({super.key});
+  final void Function()? onTap;
+
+  const SignInPage({super.key, required this.onTap});
 
   @override
   State<SignInPage> createState() => _SignInPageState();
@@ -84,14 +85,8 @@ class _SignInPageState extends State<SignInPage> {
                   children: [
                     const Text('Don\'t have an account?'),
                     TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const SignUpPage(),
-                          ),
-                        );
-                      },
+                      onPressed: widget.onTap,
+
                       child: const Text(
                         'Sign Up',
                         style: TextStyle(color: Colors.purple),
