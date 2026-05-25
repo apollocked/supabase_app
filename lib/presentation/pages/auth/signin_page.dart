@@ -27,6 +27,15 @@ class _SignInPageState extends State<SignInPage> {
     final auth = context.read<ClientProvider>();
     if (auth.isLoading) return;
     try {
+      if (emailController.text.trim().isEmpty ||
+          passwordController.text.trim().isEmpty) {
+        mySnackBar(
+          "Email and password is required ",
+          context,
+          color: Colors.red,
+        );
+        return;
+      }
       await auth.signIn(
         emailController.text.trim(),
         passwordController.text.trim(),

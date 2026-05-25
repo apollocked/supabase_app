@@ -5,6 +5,7 @@ import 'package:my_supabase_app/core/failures.dart';
 import 'package:my_supabase_app/logic/client_provider.dart';
 import 'package:my_supabase_app/presentation/widgets/custom_textfield.dart';
 import 'package:my_supabase_app/presentation/widgets/my_button.dart';
+import 'package:my_supabase_app/presentation/widgets/snackbar.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -29,6 +30,12 @@ class _SignUpPageState extends State<SignUpPage> {
     if (auth.isLoading) return;
 
     try {
+      if (emailController.text.trim().isEmpty ||
+          passwordController.text.trim().isEmpty ||
+          usernameController.text.trim().isEmpty) {
+        mySnackBar("empty fields not allowed ", context, color: Colors.red);
+        return;
+      }
       await auth.signUp(
         emailController.text.trim(),
         passwordController.text.trim(),
