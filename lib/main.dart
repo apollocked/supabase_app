@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_supabase_app/logic/chat_provider.dart';
 import 'package:my_supabase_app/logic/client_provider.dart';
 import 'package:my_supabase_app/presentation/pages/auth/login_or_register.dart';
 import 'package:my_supabase_app/presentation/pages/home_page.dart';
@@ -15,7 +16,10 @@ void main() async {
   );
   runApp(
     MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => ClientProvider())],
+      providers: [
+        ChangeNotifierProvider(create: (_) => ClientProvider()),
+        ChangeNotifierProvider(create: (_) => ChatProvider()),
+      ],
       child: const MySupabaseApp(),
     ),
   );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_supabase_app/logic/client_provider.dart';
 import 'package:my_supabase_app/model/note.dart';
+import 'package:my_supabase_app/presentation/pages/chat_list_page.dart';
 import 'package:my_supabase_app/presentation/pages/upload_page.dart';
 import 'package:my_supabase_app/helpers/note_helper_methods.dart';
 import 'package:my_supabase_app/presentation/widgets/custom_confirmation.dart';
@@ -16,7 +17,15 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Home'),
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.chat, size: 18)),
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ChatListPage()),
+              );
+            },
+            icon: const Icon(Icons.chat, size: 18),
+          ),
           IconButton(
             onPressed: () {
               Navigator.push(
