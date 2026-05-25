@@ -16,12 +16,14 @@ class ChatPage extends StatefulWidget {
 class _ChatPageState extends State<ChatPage> {
   final _messageController = TextEditingController();
   final _scrollController = ScrollController();
+  late ChatProvider chatProvider;
 
   @override
   void initState() {
     super.initState();
+
+    chatProvider = context.read<ChatProvider>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final chatProvider = context.read<ChatProvider>();
       chatProvider.loadMessages(widget.groupId);
       chatProvider.subscribeToMessages(widget.groupId);
     });
@@ -31,7 +33,7 @@ class _ChatPageState extends State<ChatPage> {
   void dispose() {
     _messageController.dispose();
     _scrollController.dispose();
-    context.read<ChatProvider>().unsubscribeFromMessages();
+    chatProvider.unsubscribeFromMessages();
     super.dispose();
   }
 
@@ -84,8 +86,6 @@ class _ChatPageState extends State<ChatPage> {
                     child: Text('No messages yet. Say hello!'),
                   );
                 }
-
-                // Auto-scroll when new messages arrive
                 _scrollToBottom();
 
                 return ListView.builder(

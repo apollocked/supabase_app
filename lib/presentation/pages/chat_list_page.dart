@@ -1,8 +1,13 @@
 // lib/pages/chat_list_page.dart
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:my_supabase_app/logic/chat_provider.dart';
+import 'package:my_supabase_app/presentation/pages/create_group.dart';
 import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
+import '../pages/chat_page.dart';
+import '../pages/new_dm_page.dart';
 
 class ChatListPage extends StatefulWidget {
   const ChatListPage({super.key});
@@ -12,11 +17,14 @@ class ChatListPage extends StatefulWidget {
 }
 
 class _ChatListPageState extends State<ChatListPage> {
+  late ChatProvider chatProvider;
   @override
   void initState() {
     super.initState();
+
+    chatProvider = context.read<ChatProvider>();
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final chatProvider = context.read<ChatProvider>();
       chatProvider.loadChats();
       chatProvider.subscribeToChats();
     });
@@ -24,7 +32,7 @@ class _ChatListPageState extends State<ChatListPage> {
 
   @override
   void dispose() {
-    context.read<ChatProvider>().unsubscribeFromChats();
+    chatProvider.unsubscribeFromChats();
     super.dispose();
   }
 
@@ -36,9 +44,36 @@ class _ChatListPageState extends State<ChatListPage> {
         actions: [
           IconButton(
             icon: const Icon(Icons.person_add),
-            onPressed: () async {},
+            onPressed: () async {
+              final groupId = await Navigator.push<String>(
+                context,
+                MaterialPageRoute(builder: (_) => const NewDMPage()),
+              );
+              if (groupId != null) {
+                if (!mounted) return;
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => ChatPage(groupId: groupId)),
+                );
+              }
+            },
           ),
-          IconButton(icon: const Icon(Icons.group_add), onPressed: () async {}),
+          IconButton(
+            icon: const Icon(Icons.group_add),
+            onPressed: () async {
+              final groupId = await Navigator.push<String>(
+                context,
+                MaterialPageRoute(builder: (_) => const CreateGroupPage()),
+              );
+              if (groupId != null) {
+                if (!mounted) return;
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => ChatPage(groupId: groupId)),
+                );
+              }
+            },
+          ),
         ],
       ),
       body: Consumer<ChatProvider>(
@@ -78,7 +113,14 @@ class _ChatListPageState extends State<ChatListPage> {
                         style: const TextStyle(fontSize: 12),
                       )
                     : null,
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => ChatPage(groupId: chat['group_id']),
+                    ),
+                  );
+                },
               );
             },
           );
