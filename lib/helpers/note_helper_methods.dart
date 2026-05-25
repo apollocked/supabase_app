@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:my_supabase_app/model/note.dart';
+import 'package:my_supabase_app/presentation/widgets/custom_confirmation.dart';
 import 'package:my_supabase_app/presentation/widgets/custom_dialog.dart';
 import 'package:my_supabase_app/service/note_database_service.dart';
 
@@ -19,25 +20,15 @@ class NoteHelperMethods {
   }
 
   void deleteNote(Note note, BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Delete Note'),
-        content: Text('Are you sure you want to delete this note?'),
-        actions: [
-          TextButton(
-            child: Text('Cancel'),
-            onPressed: () => Navigator.pop(context),
-          ),
-          TextButton(
-            child: Text('Delete', style: TextStyle(color: Colors.red)),
-            onPressed: () async {
-              await noteDatabase.deleteNote(note);
-              Navigator.pop(context);
-            },
-          ),
-        ],
-      ),
+    customConfirmationDialog(
+      context,
+      'Delete Note',
+      'Are you sure you want to delete this note?',
+      'Delete',
+      () async {
+        await noteDatabase.deleteNote(note);
+        Navigator.pop(context);
+      },
     );
   }
 

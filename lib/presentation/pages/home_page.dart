@@ -3,6 +3,7 @@ import 'package:my_supabase_app/logic/client_provider.dart';
 import 'package:my_supabase_app/model/note.dart';
 import 'package:my_supabase_app/presentation/pages/upload_page.dart';
 import 'package:my_supabase_app/helpers/note_helper_methods.dart';
+import 'package:my_supabase_app/presentation/widgets/custom_confirmation.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -14,21 +15,30 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
-        leading: IconButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => UploadPage()),
-            );
-          },
-          icon: const Icon(Icons.drive_folder_upload),
-        ),
-        centerTitle: true,
         actions: [
+          IconButton(onPressed: () {}, icon: const Icon(Icons.chat, size: 18)),
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => UploadPage()),
+              );
+            },
+            icon: const Icon(Icons.drive_folder_upload, size: 18),
+          ),
           IconButton(
             icon: Icon(Icons.logout),
             onPressed: () {
-              signOut(context);
+              customConfirmationDialog(
+                context,
+                "Logout",
+                "Are you sure you want to logout",
+                "Logout",
+                () {
+                  signOut(context);
+                  Navigator.pop(context);
+                },
+              );
             },
           ),
         ],
