@@ -1,4 +1,3 @@
-// lib/pages/new_dm_page.dart
 import 'package:flutter/material.dart';
 import 'package:my_supabase_app/logic/chat_provider.dart';
 import 'package:provider/provider.dart';

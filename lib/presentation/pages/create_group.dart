@@ -1,6 +1,6 @@
-// lib/pages/create_group_page.dart
 import 'package:flutter/material.dart';
 import 'package:my_supabase_app/logic/chat_provider.dart';
+import 'package:my_supabase_app/presentation/widgets/search_users_result.dart';
 import 'package:provider/provider.dart';
 
 class CreateGroupPage extends StatefulWidget {
@@ -15,6 +15,24 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
   final _searchController = TextEditingController();
   final List<String> _selectedUserIds = [];
   final List<String> _selectedUsernames = [];
+  Future<void> _createGroup() async {
+    final groupName = _groupNameController.text.trim();
+    if (groupName.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please enter a group name')),
+      );
+      return;
+    }
+
+    final groupId = await context.read<ChatProvider>().createGroup(
+      groupName,
+      _selectedUserIds,
+    );
+
+    if (groupId != null && mounted) {
+      Navigator.pop(context, groupId);
+    }
+  }
 
   @override
   void dispose() {
@@ -42,7 +60,6 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
               ),
             ),
           ),
-
           // Selected Members Chips
           if (_selectedUsernames.isNotEmpty)
             Padding(
@@ -87,56 +104,16 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
           ),
           const SizedBox(height: 8),
 
-          // Search Results
-          Expanded(
-            child: Consumer<ChatProvider>(
-              builder: (context, chatProvider, _) {
-                return ListView.builder(
-                  itemCount: chatProvider.searchUsers.length,
-                  itemBuilder: (context, index) {
-                    final user = chatProvider.searchUsers[index];
-                    final userId = user['id'] as String;
-                    final isSelected = _selectedUserIds.contains(userId);
-
-                    return ListTile(
-                      leading: CircleAvatar(
-                        backgroundColor: isSelected
-                            ? Theme.of(context).primaryColor
-                            : null,
-                        child: const Icon(Icons.person),
-                      ),
-                      title: Text(user['username'] ?? 'Unknown'),
-                      trailing: isSelected
-                          ? const Icon(Icons.check_circle, color: Colors.green)
-                          : null,
-                      onTap: () {
-                        setState(() {
-                          if (isSelected) {
-                            final idx = _selectedUserIds.indexOf(userId);
-                            _selectedUserIds.removeAt(idx);
-                            _selectedUsernames.removeAt(idx);
-                          } else {
-                            _selectedUserIds.add(userId);
-                            _selectedUsernames.add(
-                              user['username'] ?? 'Unknown',
-                            );
-                          }
-                        });
-                      },
-                    );
-                  },
-                );
-              },
-            ),
+          SearchUsersResult(
+            selectedUserIds: _selectedUserIds,
+            selectedUsernames: _selectedUsernames,
           ),
-
-          // Create Button
           Padding(
             padding: const EdgeInsets.all(12),
             child: SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: _selectedUserIds.isEmpty ? null : _createGroup,
+                onPressed: _selectedUserIds.isNotEmpty ? _createGroup : null,
                 child: const Text('Create Group'),
               ),
             ),
@@ -144,24 +121,5 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
         ],
       ),
     );
-  }
-
-  Future<void> _createGroup() async {
-    final groupName = _groupNameController.text.trim();
-    if (groupName.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please enter a group name')),
-      );
-      return;
-    }
-
-    final groupId = await context.read<ChatProvider>().createGroup(
-      groupName,
-      _selectedUserIds,
-    );
-
-    if (groupId != null && mounted) {
-      Navigator.pop(context, groupId);
-    }
   }
 }

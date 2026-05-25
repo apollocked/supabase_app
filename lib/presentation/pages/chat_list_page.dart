@@ -1,6 +1,4 @@
-// lib/pages/chat_list_page.dart
 // ignore_for_file: use_build_context_synchronously
-
 import 'package:flutter/material.dart';
 import 'package:my_supabase_app/logic/chat_provider.dart';
 import 'package:my_supabase_app/presentation/pages/create_group.dart';

@@ -1,6 +1,7 @@
-// lib/pages/chat_page.dart
 import 'package:flutter/material.dart';
 import 'package:my_supabase_app/logic/chat_provider.dart';
+import 'package:my_supabase_app/presentation/widgets/chats_widget.dart';
+import 'package:my_supabase_app/presentation/widgets/custom_textfield.dart';
 import 'package:my_supabase_app/presentation/widgets/show_group_info.dart';
 import 'package:provider/provider.dart';
 
@@ -88,79 +89,10 @@ class _ChatPageState extends State<ChatPage> {
                 }
                 _scrollToBottom();
 
-                return ListView.builder(
-                  controller: _scrollController,
-                  padding: const EdgeInsets.all(12),
-                  itemCount: messages.length,
-                  itemBuilder: (context, index) {
-                    final msg = messages[index];
-                    final isMe = msg['sender_id'] == currentUserId;
-                    final senderName =
-                        msg['profiles']?['username'] ?? 'Unknown';
-                    final content = msg['content'] as String;
-                    final time = msg['created_at'] as String;
-
-                    return Align(
-                      alignment: isMe
-                          ? Alignment.centerRight
-                          : Alignment.centerLeft,
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(vertical: 4),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 14,
-                          vertical: 10,
-                        ),
-                        decoration: BoxDecoration(
-                          color: isMe
-                              ? Theme.of(context).primaryColor
-                              : Colors.grey.shade300,
-                          borderRadius: BorderRadius.only(
-                            topLeft: const Radius.circular(16),
-                            topRight: const Radius.circular(16),
-                            bottomLeft: isMe
-                                ? const Radius.circular(16)
-                                : Radius.zero,
-                            bottomRight: isMe
-                                ? Radius.zero
-                                : const Radius.circular(16),
-                          ),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: isMe
-                              ? CrossAxisAlignment.end
-                              : CrossAxisAlignment.start,
-                          children: [
-                            if (!isMe)
-                              Text(
-                                senderName,
-                                style: TextStyle(
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.bold,
-                                  color: Theme.of(context).primaryColor,
-                                ),
-                              ),
-                            const SizedBox(height: 4),
-                            Text(
-                              content,
-                              style: TextStyle(
-                                color: isMe ? Colors.white : Colors.black87,
-                              ),
-                            ),
-                            const SizedBox(height: 4),
-                            Text(
-                              _formatTime(time),
-                              style: TextStyle(
-                                fontSize: 10,
-                                color: isMe
-                                    ? Colors.white70
-                                    : Colors.grey.shade600,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
+                return Chat(
+                  scrollController: _scrollController,
+                  messages: messages,
+                  currentUserId: currentUserId,
                 );
               },
             ),
@@ -182,20 +114,11 @@ class _ChatPageState extends State<ChatPage> {
               child: Row(
                 children: [
                   Expanded(
-                    child: TextField(
-                      controller: _messageController,
-                      decoration: InputDecoration(
-                        hintText: 'Type a message...',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(24),
-                        ),
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 10,
-                        ),
-                      ),
-                      textInputAction: TextInputAction.send,
-                      onSubmitted: (_) => _sendMessage(),
+                    child: customTextField(
+                      _messageController,
+                      Icons.message,
+                      'Type a message...',
+                      isObsecure: false,
                     ),
                   ),
                   const SizedBox(width: 8),
@@ -210,10 +133,5 @@ class _ChatPageState extends State<ChatPage> {
         ],
       ),
     );
-  }
-
-  String _formatTime(String isoTime) {
-    final dt = DateTime.parse(isoTime).toLocal();
-    return '${dt.hour.toString().padLeft(2, '0')}:${dt.minute.toString().padLeft(2, '0')}';
   }
 }
