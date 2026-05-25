@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_supabase_app/logic/chat_provider.dart';
+import 'package:my_supabase_app/presentation/widgets/custom_textfield.dart';
 import 'package:provider/provider.dart';
 
 class NewDMPage extends StatefulWidget {
@@ -26,15 +27,10 @@ class _NewDMPageState extends State<NewDMPage> {
         children: [
           Padding(
             padding: const EdgeInsets.all(12),
-            child: TextField(
-              controller: _searchController,
-              decoration: InputDecoration(
-                hintText: 'Search users...',
-                prefixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
+            child: customTextField(
+              _searchController,
+              Icons.search,
+              'Search users...',
               onChanged: (value) {
                 context.read<ChatProvider>().searchUsersByUsername(value);
               },

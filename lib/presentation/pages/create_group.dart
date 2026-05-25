@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_supabase_app/logic/chat_provider.dart';
+import 'package:my_supabase_app/presentation/widgets/custom_textfield.dart';
 import 'package:my_supabase_app/presentation/widgets/search_users_result.dart';
 import 'package:provider/provider.dart';
 
@@ -46,14 +47,10 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
         children: [
           Padding(
             padding: const EdgeInsets.all(12),
-            child: TextField(
-              controller: _groupNameController,
-              decoration: InputDecoration(
-                hintText: 'Group name',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
+            child: customTextField(
+              _groupNameController,
+              Icons.group,
+              'Group name',
             ),
           ),
           if (_selectedUsernames.isNotEmpty)
@@ -81,15 +78,10 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
           const SizedBox(height: 8),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: TextField(
-              controller: _searchController,
-              decoration: InputDecoration(
-                hintText: 'Add members...',
-                prefixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
+            child: customTextField(
+              _searchController,
+              Icons.search,
+              'Add members...',
               onChanged: (value) {
                 context.read<ChatProvider>().searchUsersByUsername(value);
               },

@@ -5,10 +5,12 @@ TextField customTextField(
   IconData icon,
   String hint, {
   bool isObsecure = false,
+  void Function(String)? onChanged,
 }) {
   return TextField(
     controller: controler,
     obscureText: isObsecure,
+    onChanged: onChanged ?? (_) {},
     decoration: InputDecoration(
       border: OutlineInputBorder(
         borderSide: BorderSide(color: Colors.black54),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_supabase_app/presentation/widgets/custom_textfield.dart';
 
 Future<dynamic> customDialog(
   BuildContext context,
@@ -11,13 +12,7 @@ Future<dynamic> customDialog(
     context: context,
     builder: (context) => AlertDialog(
       title: Text(title),
-      content: TextField(
-        decoration: InputDecoration(
-          border: OutlineInputBorder(),
-          hintText: 'Enter a note',
-        ),
-        controller: noteControler,
-      ),
+      content: customTextField(noteControler, Icons.note, 'Enter a note'),
       actions: [
         TextButton(
           child: Text('Cancel'),
