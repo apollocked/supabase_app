@@ -1,6 +1,7 @@
 // lib/pages/chat_page.dart
 import 'package:flutter/material.dart';
 import 'package:my_supabase_app/logic/chat_provider.dart';
+import 'package:my_supabase_app/presentation/widgets/show_group_info.dart';
 import 'package:provider/provider.dart';
 
 class ChatPage extends StatefulWidget {
@@ -66,7 +67,7 @@ class _ChatPageState extends State<ChatPage> {
           IconButton(
             icon: const Icon(Icons.info_outline),
             onPressed: () {
-              _showGroupInfo(context);
+              showGroupInfo(context, widget.groupId);
             },
           ),
         ],
@@ -214,36 +215,5 @@ class _ChatPageState extends State<ChatPage> {
   String _formatTime(String isoTime) {
     final dt = DateTime.parse(isoTime).toLocal();
     return '${dt.hour.toString().padLeft(2, '0')}:${dt.minute.toString().padLeft(2, '0')}';
-  }
-
-  void _showGroupInfo(BuildContext context) async {
-    final members = await context.read<ChatProvider>().getGroupMembers(
-      widget.groupId,
-    );
-
-    if (!mounted) return;
-
-    showModalBottomSheet(
-      // ignore: use_build_context_synchronously
-      context: context,
-      builder: (_) => ListView(
-        shrinkWrap: true,
-        children: [
-          const Padding(
-            padding: EdgeInsets.all(16),
-            child: Text(
-              'Group Members',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-          ),
-          ...members.map(
-            (m) => ListTile(
-              leading: const CircleAvatar(child: Icon(Icons.person)),
-              title: Text(m['profiles']?['username'] ?? 'Unknown'),
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }
