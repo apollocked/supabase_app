@@ -4,15 +4,12 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class ClientProvider extends ChangeNotifier {
   final client = Supabase.instance.client;
   bool isLoading = false;
-
   ClientProvider() {
     client.auth.onAuthStateChange.listen((data) {
       notifyListeners();
     });
   }
-
   bool get isSignedIn => client.auth.currentUser != null;
-
   Future<void> signIn(String email, String password) async {
     isLoading = true;
     notifyListeners();

@@ -13,6 +13,10 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     NoteHelperMethods noteHelperMethods = NoteHelperMethods();
+    Future<void> signOut(BuildContext context) async {
+      context.read<ClientProvider>().signOut();
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
@@ -116,9 +120,5 @@ class HomePage extends StatelessWidget {
         child: Icon(Icons.add),
       ),
     );
-  }
-
-  Future<void> signOut(BuildContext context) async {
-    context.read<ClientProvider>().signOut();
   }
 }

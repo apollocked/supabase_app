@@ -11,9 +11,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SignInPage extends StatefulWidget {
   final void Function()? onTap;
-
   const SignInPage({super.key, required this.onTap});
-
   @override
   State<SignInPage> createState() => _SignInPageState();
 }
@@ -22,7 +20,6 @@ class _SignInPageState extends State<SignInPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final supabase = Supabase.instance.client;
-
   Future<void> signIn() async {
     final auth = context.read<ClientProvider>();
     if (auth.isLoading) return;
@@ -95,7 +92,6 @@ class _SignInPageState extends State<SignInPage> {
                     const Text('Don\'t have an account?'),
                     TextButton(
                       onPressed: widget.onTap,
-
                       child: const Text(
                         'Sign Up',
                         style: TextStyle(color: Colors.purple),

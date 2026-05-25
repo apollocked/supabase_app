@@ -7,9 +7,7 @@ import 'package:provider/provider.dart';
 
 class ChatPage extends StatefulWidget {
   final String groupId;
-
   const ChatPage({super.key, required this.groupId});
-
   @override
   State<ChatPage> createState() => _ChatPageState();
 }
@@ -18,11 +16,9 @@ class _ChatPageState extends State<ChatPage> {
   final _messageController = TextEditingController();
   final _scrollController = ScrollController();
   late ChatProvider chatProvider;
-
   @override
   void initState() {
     super.initState();
-
     chatProvider = context.read<ChatProvider>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       chatProvider.loadMessages(widget.groupId);
@@ -62,7 +58,6 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     final currentUserId = context.read<ChatProvider>().currentUserId;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Chat'),
@@ -81,14 +76,12 @@ class _ChatPageState extends State<ChatPage> {
             child: Consumer<ChatProvider>(
               builder: (context, chatProvider, _) {
                 final messages = chatProvider.messages;
-
                 if (messages.isEmpty) {
                   return const Center(
                     child: Text('No messages yet. Say hello!'),
                   );
                 }
                 _scrollToBottom();
-
                 return Chat(
                   scrollController: _scrollController,
                   messages: messages,

@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 
 class CreateGroupPage extends StatefulWidget {
   const CreateGroupPage({super.key});
-
   @override
   State<CreateGroupPage> createState() => _CreateGroupPageState();
 }
@@ -23,12 +22,10 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
       );
       return;
     }
-
     final groupId = await context.read<ChatProvider>().createGroup(
       groupName,
       _selectedUserIds,
     );
-
     if (groupId != null && mounted) {
       Navigator.pop(context, groupId);
     }
@@ -47,7 +44,6 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
       appBar: AppBar(title: const Text('Create Group')),
       body: Column(
         children: [
-          // Group Name
           Padding(
             padding: const EdgeInsets.all(12),
             child: TextField(
@@ -60,7 +56,6 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
               ),
             ),
           ),
-          // Selected Members Chips
           if (_selectedUsernames.isNotEmpty)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -84,8 +79,6 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
               ),
             ),
           const SizedBox(height: 8),
-
-          // Search Users
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: TextField(
@@ -103,7 +96,6 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
             ),
           ),
           const SizedBox(height: 8),
-
           SearchUsersResult(
             selectedUserIds: _selectedUserIds,
             selectedUsernames: _selectedUsernames,

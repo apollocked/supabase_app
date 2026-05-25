@@ -9,7 +9,6 @@ import '../pages/new_dm_page.dart';
 
 class ChatListPage extends StatefulWidget {
   const ChatListPage({super.key});
-
   @override
   State<ChatListPage> createState() => _ChatListPageState();
 }
@@ -19,9 +18,7 @@ class _ChatListPageState extends State<ChatListPage> {
   @override
   void initState() {
     super.initState();
-
     chatProvider = context.read<ChatProvider>();
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       chatProvider.loadChats();
       chatProvider.subscribeToChats();
@@ -79,13 +76,11 @@ class _ChatListPageState extends State<ChatListPage> {
           if (chatProvider.isLoading && chatProvider.chats.isEmpty) {
             return const Center(child: CircularProgressIndicator());
           }
-
           if (chatProvider.chats.isEmpty) {
             return const Center(
               child: Text('No chats yet.\nStart a new conversation!'),
             );
           }
-
           return ListView.builder(
             itemCount: chatProvider.chats.length,
             itemBuilder: (context, index) {
@@ -94,7 +89,6 @@ class _ChatListPageState extends State<ChatListPage> {
               final lastMessage =
                   chat['last_message'] as String? ?? 'No messages yet';
               final lastTime = chat['last_message_time'] as String?;
-
               return ListTile(
                 leading: CircleAvatar(
                   child: Icon(isGroup ? Icons.group : Icons.person),

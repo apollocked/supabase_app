@@ -4,7 +4,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 dynamic failures(BuildContext context, AuthException e) {
   String errorMessage;
-
   final errorMsgLower = e.message.toLowerCase();
   if (errorMsgLower.contains("invalid login credentials")) {
     errorMessage = "The email or password you entered is incorrect.";
@@ -20,7 +19,6 @@ dynamic failures(BuildContext context, AuthException e) {
   } else {
     errorMessage = e.message;
   }
-
   if (errorMessage.isEmpty) {
     errorMessage = "An error occurred. Please try again.";
   }

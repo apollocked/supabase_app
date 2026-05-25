@@ -25,7 +25,6 @@ class Chat extends StatelessWidget {
         final senderName = msg['profiles']?['username'] ?? 'Unknown';
         final content = msg['content'] as String;
         final time = msg['created_at'] as String;
-
         return Align(
           alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
           child: Container(

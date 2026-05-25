@@ -46,7 +46,6 @@ class _NewDMPageState extends State<NewDMPage> {
                 if (chatProvider.searchUsers.isEmpty) {
                   return const Center(child: Text('Search for users'));
                 }
-
                 return ListView.builder(
                   itemCount: chatProvider.searchUsers.length,
                   itemBuilder: (context, index) {

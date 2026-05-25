@@ -4,7 +4,6 @@ import 'package:my_supabase_app/presentation/pages/auth/signup_page.dart';
 
 class LoginOrRegisterPage extends StatefulWidget {
   const LoginOrRegisterPage({super.key});
-
   @override
   State<LoginOrRegisterPage> createState() => _LoginOrRegisterPageState();
 }

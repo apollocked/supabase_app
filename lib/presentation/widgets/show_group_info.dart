@@ -3,12 +3,7 @@ import 'package:my_supabase_app/logic/chat_provider.dart';
 import 'package:provider/provider.dart';
 
 void showGroupInfo(BuildContext context, String groupId) async {
-  final members = await context.read<ChatProvider>().getGroupMembers(
-    groupId,
-  );
-
- 
-
+  final members = await context.read<ChatProvider>().getGroupMembers(groupId);
   showModalBottomSheet(
     // ignore: use_build_context_synchronously
     context: context,

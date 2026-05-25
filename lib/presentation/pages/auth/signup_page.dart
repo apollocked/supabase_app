@@ -10,10 +10,8 @@ import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SignUpPage extends StatefulWidget {
-  final void Function()? onTap; // Add this
-
+  final void Function()? onTap;
   const SignUpPage({super.key, required this.onTap});
-
   @override
   State<SignUpPage> createState() => _SignUpPageState();
 }
@@ -23,12 +21,9 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController usernameController = TextEditingController();
-
-  // Inside SignUpPage
   Future<void> signUp() async {
     final auth = context.read<ClientProvider>();
     if (auth.isLoading) return;
-
     try {
       if (emailController.text.trim().isEmpty ||
           passwordController.text.trim().isEmpty ||
