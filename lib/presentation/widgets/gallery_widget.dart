@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_supabase_app/presentation/widgets/custom_confirmation.dart';
 import 'package:my_supabase_app/service/file_storage_service.dart';
 
 class GalleryWidget extends StatefulWidget {
@@ -11,7 +12,6 @@ class GalleryWidget extends StatefulWidget {
 class _GalleryWidgetState extends State<GalleryWidget> {
   final StorageService _storageService = StorageService();
 
-  // 1. Manage state locally instead of using a FutureBuilder
   List<Map<String, String>> _images = [];
   bool _isLoading = true;
   String? _errorMessage;
@@ -22,7 +22,6 @@ class _GalleryWidgetState extends State<GalleryWidget> {
     _fetchImages();
   }
 
-  // 2. Fetch images once on load
   Future<void> _fetchImages() async {
     setState(() {
       _isLoading = true;
@@ -105,8 +104,15 @@ class _GalleryWidgetState extends State<GalleryWidget> {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: GestureDetector(
-                    // Call our new delete handler
-                    onLongPress: () => _handleDelete(index),
+                    onLongPress: () => customConfirmationDialog(
+                      context,
+                      "Delete Image",
+                      "Are you sure you want to delete this image?",
+                      "Delete",
+                      () {
+                        _handleDelete(index);
+                      },
+                    ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(12),
                       child: Image.network(
@@ -127,6 +133,10 @@ class _GalleryWidgetState extends State<GalleryWidget> {
                 );
               },
             ),
+          ),
+          Text(
+            'Long press on a image to delete it.',
+            style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
           ),
         ],
       ),

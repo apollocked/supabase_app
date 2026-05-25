@@ -16,7 +16,7 @@ class UploadPage extends StatefulWidget {
 }
 
 class _UploadPageState extends State<UploadPage> {
-  // Image Picker
+  bool _isUploading = false;
   File? imageFile;
   Future<void> pickImage() async {
     final imagePicker = ImagePicker();
@@ -34,6 +34,9 @@ class _UploadPageState extends State<UploadPage> {
     if (imageFile == null) {
       return;
     }
+    setState(() {
+      _isUploading = true;
+    });
     final filename = DateTime.now().millisecondsSinceEpoch.toString();
     final path =
         '${Supabase.instance.client.auth.currentUser!.id}/$filename.jpg';
@@ -51,6 +54,10 @@ class _UploadPageState extends State<UploadPage> {
       if (mounted) {
         mySnackBar("Upload failed: $e", context, color: Colors.red);
       }
+    } finally {
+      setState(() {
+        _isUploading = false;
+      });
     }
   }
 
@@ -78,8 +85,19 @@ class _UploadPageState extends State<UploadPage> {
                         ),
                       ),
                       ElevatedButton(
-                        onPressed: uploadImage,
-                        child: const Text('Upload'),
+                        onPressed: () {
+                          uploadImage();
+                        },
+                        child: _isUploading
+                            ? SizedBox(
+                                width: 20,
+                                height: 20,
+                                child: const CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                  color: Colors.purpleAccent,
+                                ),
+                              )
+                            : const Text('Upload'),
                       ),
                     ]
                   : [
