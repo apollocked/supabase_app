@@ -9,7 +9,7 @@ ElevatedButton myButton(
     onPressed: onPressed,
     style: ButtonStyle(
       fixedSize: WidgetStatePropertyAll(Size(350, 50)),
-      backgroundColor: WidgetStatePropertyAll(Colors.purpleAccent),
+      backgroundColor: WidgetStatePropertyAll(Colors.pinkAccent),
       shape: WidgetStatePropertyAll(
         RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),

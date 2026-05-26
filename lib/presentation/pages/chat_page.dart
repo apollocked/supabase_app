@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_supabase_app/core/logic/chat_provider.dart';
 import 'package:my_supabase_app/presentation/widgets/chats_widget.dart';
 import 'package:my_supabase_app/presentation/widgets/custom_textfield.dart';
+import 'package:my_supabase_app/presentation/widgets/empty_state/empty_messages_in_chat.dart';
 import 'package:my_supabase_app/presentation/widgets/show_group_info.dart';
 import 'package:provider/provider.dart';
 
@@ -77,9 +78,7 @@ class _ChatPageState extends State<ChatPage> {
               builder: (context, chatProvider, _) {
                 final messages = chatProvider.messages;
                 if (messages.isEmpty) {
-                  return const Center(
-                    child: Text('No messages yet. Say hello!'),
-                  );
+                  return const EmptyMessagesInChat();
                 }
                 _scrollToBottom();
                 return Chat(
@@ -94,12 +93,12 @@ class _ChatPageState extends State<ChatPage> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
             decoration: BoxDecoration(
-              color: Colors.white,
+              border: Border.all(color: Colors.black54, width: 2),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.grey.shade300,
+                  color: Colors.pinkAccent.withAlpha(30),
                   blurRadius: 4,
-                  offset: const Offset(0, -2),
+                  offset: const Offset(0, 2),
                 ),
               ],
             ),

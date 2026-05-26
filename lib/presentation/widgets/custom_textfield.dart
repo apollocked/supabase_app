@@ -17,7 +17,7 @@ TextField customTextField(
         borderRadius: BorderRadius.all(Radius.circular(8)),
       ),
       hintText: hint,
-      prefixIcon: Icon(icon),
+      prefixIcon: Icon(icon, color: Colors.pinkAccent),
     ),
   );
 }

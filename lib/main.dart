@@ -32,6 +32,26 @@ class MySupabaseApp extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isloggedIn = context.watch<ClientProvider>().isSignedIn;
     return MaterialApp(
+      theme: ThemeData(
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.pinkAccent,
+          brightness: Brightness.light,
+        ),
+        iconTheme: IconThemeData(color: Colors.pinkAccent),
+        iconButtonTheme: IconButtonThemeData(
+          style: ButtonStyle(
+            iconSize: WidgetStatePropertyAll(20),
+            foregroundColor: WidgetStatePropertyAll(Colors.pinkAccent),
+            iconColor: WidgetStatePropertyAll(Colors.pinkAccent),
+          ),
+        ),
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          elevation: 4,
+          backgroundColor: Colors.pinkAccent,
+          foregroundColor: Colors.white,
+        ),
+      ),
       debugShowCheckedModeBanner: false,
       home: isloggedIn ? HomePage() : const LoginOrRegisterPage(),
     );

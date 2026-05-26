@@ -94,7 +94,7 @@ class _SignInPageState extends State<SignInPage> {
                       onPressed: widget.onTap,
                       child: const Text(
                         'Sign Up',
-                        style: TextStyle(color: Colors.purple),
+                        style: TextStyle(color: Colors.pinkAccent),
                       ),
                     ),
                   ],
