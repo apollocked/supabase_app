@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_supabase_app/presentation/widgets/snackbar.dart';
+import 'package:my_supabase_app/presentation/widgets/my_widgets/snackbar.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 dynamic failures(BuildContext context, AuthException e) {

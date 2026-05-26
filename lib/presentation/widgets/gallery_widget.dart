@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_supabase_app/presentation/widgets/custom_confirmation.dart';
+import 'package:my_supabase_app/presentation/widgets/my_widgets/custom_confirmation.dart';
 import 'package:my_supabase_app/presentation/widgets/empty_state/empty_gallery.dart';
 import 'package:my_supabase_app/service/file_storage_service.dart';
 

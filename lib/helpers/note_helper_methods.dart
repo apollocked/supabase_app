@@ -1,8 +1,8 @@
 // ignore_for_file: use_build_context_synchronously
 import 'package:flutter/material.dart';
 import 'package:my_supabase_app/model/note.dart';
-import 'package:my_supabase_app/presentation/widgets/custom_confirmation.dart';
-import 'package:my_supabase_app/presentation/widgets/custom_dialog.dart';
+import 'package:my_supabase_app/presentation/widgets/my_widgets/custom_confirmation.dart';
+import 'package:my_supabase_app/presentation/widgets/my_widgets/custom_dialog.dart';
 import 'package:my_supabase_app/service/note_database_service.dart';
 
 class NoteHelperMethods {

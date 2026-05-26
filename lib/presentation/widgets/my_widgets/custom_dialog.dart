@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_supabase_app/presentation/widgets/custom_textfield.dart';
+import 'package:my_supabase_app/presentation/widgets/my_widgets/custom_textfield.dart';
 
 Future<dynamic> customDialog(
   BuildContext context,

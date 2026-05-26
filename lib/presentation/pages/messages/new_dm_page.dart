@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_supabase_app/core/logic/chat_provider.dart';
-import 'package:my_supabase_app/presentation/widgets/custom_textfield.dart';
+import 'package:my_supabase_app/presentation/widgets/my_widgets/custom_textfield.dart';
 import 'package:provider/provider.dart';
 
 class NewDMPage extends StatefulWidget {
@@ -40,7 +40,18 @@ class _NewDMPageState extends State<NewDMPage> {
             child: Consumer<ChatProvider>(
               builder: (context, chatProvider, _) {
                 if (chatProvider.searchUsers.isEmpty) {
-                  return const Center(child: Text('Search for users'));
+                  return const Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.person, size: 100),
+                        Text(
+                          'Search for users',
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ],
+                    ),
+                  );
                 }
                 return ListView.builder(
                   itemCount: chatProvider.searchUsers.length,

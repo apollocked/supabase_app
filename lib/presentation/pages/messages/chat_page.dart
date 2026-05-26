@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_supabase_app/core/logic/chat_provider.dart';
 import 'package:my_supabase_app/presentation/widgets/chats_widget.dart';
-import 'package:my_supabase_app/presentation/widgets/custom_textfield.dart';
+import 'package:my_supabase_app/presentation/widgets/my_widgets/custom_textfield.dart';
 import 'package:my_supabase_app/presentation/widgets/empty_state/empty_messages_in_chat.dart';
 import 'package:my_supabase_app/presentation/widgets/show_group_info.dart';
 import 'package:provider/provider.dart';

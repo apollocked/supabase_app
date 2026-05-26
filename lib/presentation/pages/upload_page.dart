@@ -5,7 +5,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:my_supabase_app/presentation/widgets/gallery_widget.dart';
-import 'package:my_supabase_app/presentation/widgets/snackbar.dart';
+import 'package:my_supabase_app/presentation/widgets/my_widgets/snackbar.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class UploadPage extends StatefulWidget {

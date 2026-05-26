@@ -1,12 +1,12 @@
 // ignore_for_file: use_build_context_synchronously
 import 'package:flutter/material.dart';
 import 'package:my_supabase_app/core/logic/chat_provider.dart';
-import 'package:my_supabase_app/presentation/pages/create_group.dart';
+import 'package:my_supabase_app/presentation/pages/messages/create_group.dart';
 import 'package:my_supabase_app/presentation/widgets/empty_state/empty_chat_list.dart';
 import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
-import '../pages/chat_page.dart';
-import '../pages/new_dm_page.dart';
+import 'chat_page.dart';
+import 'new_dm_page.dart';
 
 class ChatListPage extends StatefulWidget {
   const ChatListPage({super.key});
