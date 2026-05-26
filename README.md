@@ -1,17 +1,69 @@
-# supabase
+# My Supabase App
 
-A new Flutter project.
+A feature-rich Flutter application demonstrating real-world integration with [Supabase](https://supabase.com/). This project showcases Authentication, Real-time Chat, CRUD operations, and File Storage.
 
-## Getting Started
+## 🚀 Features
 
-This project is a starting point for a Flutter application.
+### 🔐 Authentication
+*   User registration and login flow using Supabase Auth.
+*   Maintains user session state securely.
 
-A few resources to get you started if this is your first Flutter project:
+### 💬 Real-time Chat
+*   **Direct Messages (DMs):** One-on-one chat functionality.
+*   **Group Chats:** Create groups with multiple members.
+*   **Real-time Updates:** Instant message delivery and read updates using Supabase Realtime Channels.
+*   **User Search:** Find and start chatting with other users by username.
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+### 📝 Notes Management (CRUD)
+*   Create, Read, Update, and Delete personalized notes.
+*   Real-time synchronization of notes on the Home Dashboard.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### 📁 File Storage & Gallery
+*   Upload images/files securely to Supabase Storage.
+*   Dedicated Gallery view to manage and delete uploaded files.
+*   Generates secure signed URLs for file access.
+
+## 🛠 Tech Stack
+
+*   **Framework:** [Flutter](https://flutter.dev/)
+*   **Backend:** [Supabase](https://supabase.com/) (`supabase_flutter`)
+*   **State Management:** Provider (`provider`)
+*   **Environment Config:** `flutter_dotenv`
+
+## 📂 Project Structure
+
+*   `lib/core/` - Core logic and state management providers (`ChatProvider`, `ClientProvider`).
+*   `lib/helpers/` - Utility methods (e.g., Note helpers).
+*   `lib/model/` - Data models (e.g., `Note`).
+*   `lib/presentation/` - UI layer containing `pages` and reusable `widgets`.
+*   `lib/service/` - Supabase service integrations (`FileStorageService`, `NoteDatabaseService`).
+
+## ⚙️ Getting Started
+
+### Prerequisites
+*   [Flutter SDK](https://docs.flutter.dev/get-started/install) installed.
+*   A [Supabase](https://supabase.com/) project setup with Authentication, Database, and Storage configured.
+
+### Installation
+
+1.  **Clone the repository:**
+    ```bash
+    git clone <your-repo-url>
+    ```
+
+2.  **Install dependencies:**
+    ```bash
+    flutter pub get
+    ```
+
+3.  **Setup Environment Variables:**
+    Create a `.env` file in the root directory and add your Supabase credentials:
+    ```env
+    SUPABASE_URL=your_supabase_project_url
+    SUPABASE_ANON_KEY=your_supabase_anon_key
+    ```
+
+4.  **Run the application:**
+    ```bash
+    flutter run
+    ```

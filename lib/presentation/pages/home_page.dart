@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_supabase_app/logic/client_provider.dart';
+import 'package:my_supabase_app/core/logic/client_provider.dart';
 import 'package:my_supabase_app/model/note.dart';
 import 'package:my_supabase_app/presentation/pages/chat_list_page.dart';
 import 'package:my_supabase_app/presentation/pages/upload_page.dart';

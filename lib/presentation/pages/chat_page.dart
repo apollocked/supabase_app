@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_supabase_app/logic/chat_provider.dart';
+import 'package:my_supabase_app/core/logic/chat_provider.dart';
 import 'package:my_supabase_app/presentation/widgets/chats_widget.dart';
 import 'package:my_supabase_app/presentation/widgets/custom_textfield.dart';
 import 'package:my_supabase_app/presentation/widgets/show_group_info.dart';

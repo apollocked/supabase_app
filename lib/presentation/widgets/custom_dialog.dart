@@ -3,7 +3,6 @@ import 'package:my_supabase_app/presentation/widgets/custom_textfield.dart';
 
 Future<dynamic> customDialog(
   BuildContext context,
-
   String title,
   TextEditingController noteControler,
   VoidCallback onSave,

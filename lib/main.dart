@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_supabase_app/logic/chat_provider.dart';
-import 'package:my_supabase_app/logic/client_provider.dart';
+import 'package:my_supabase_app/core/logic/chat_provider.dart';
+import 'package:my_supabase_app/core/logic/client_provider.dart';
 import 'package:my_supabase_app/presentation/pages/auth/login_or_register.dart';
 import 'package:my_supabase_app/presentation/pages/home_page.dart';
 import 'package:provider/provider.dart';
@@ -14,6 +14,7 @@ void main() async {
     url: dotenv.env['SUPABASE_URL'] ?? '',
     anonKey: dotenv.env['SUPABASE_ANON_KEY'] ?? '',
   );
+
   runApp(
     MultiProvider(
       providers: [

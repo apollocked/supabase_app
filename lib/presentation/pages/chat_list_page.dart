@@ -1,6 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 import 'package:flutter/material.dart';
-import 'package:my_supabase_app/logic/chat_provider.dart';
+import 'package:my_supabase_app/core/logic/chat_provider.dart';
 import 'package:my_supabase_app/presentation/pages/create_group.dart';
 import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
