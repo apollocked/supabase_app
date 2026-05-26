@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_supabase_app/presentation/widgets/custom_confirmation.dart';
+import 'package:my_supabase_app/presentation/widgets/empty_state/empty_gallery.dart';
 import 'package:my_supabase_app/service/file_storage_service.dart';
 
 class GalleryWidget extends StatefulWidget {
@@ -66,7 +67,9 @@ class _GalleryWidgetState extends State<GalleryWidget> {
   @override
   Widget build(BuildContext context) {
     if (_isLoading) {
-      return const Center(child: CircularProgressIndicator());
+      return const Center(
+        child: CircularProgressIndicator(color: Colors.pinkAccent),
+      );
     }
 
     if (_errorMessage != null) {
@@ -74,7 +77,7 @@ class _GalleryWidgetState extends State<GalleryWidget> {
     }
 
     if (_images.isEmpty) {
-      return const Center(child: Text('No images uploaded yet.'));
+      return const EmptyGalleryWidget();
     }
 
     return Padding(
@@ -100,7 +103,7 @@ class _GalleryWidgetState extends State<GalleryWidget> {
 
                 return Container(
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black45, width: 2),
+                    border: Border.all(color: Colors.pinkAccent, width: 2),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: GestureDetector(

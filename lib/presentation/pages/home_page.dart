@@ -5,6 +5,7 @@ import 'package:my_supabase_app/presentation/pages/chat_list_page.dart';
 import 'package:my_supabase_app/presentation/pages/upload_page.dart';
 import 'package:my_supabase_app/helpers/note_helper_methods.dart';
 import 'package:my_supabase_app/presentation/widgets/custom_confirmation.dart';
+import 'package:my_supabase_app/presentation/widgets/empty_state/empty_notes.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -77,7 +78,7 @@ class HomePage extends StatelessWidget {
                     if (snapshot.hasData) {
                       final notes = snapshot.data ?? [];
                       if (notes.isEmpty) {
-                        return const Center(child: Text('No notes yet!'));
+                        return const EmptyNotes();
                       }
                       return ListView.builder(
                         itemCount: notes.length,

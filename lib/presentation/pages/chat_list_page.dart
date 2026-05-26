@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_supabase_app/core/logic/chat_provider.dart';
 import 'package:my_supabase_app/presentation/pages/create_group.dart';
+import 'package:my_supabase_app/presentation/widgets/empty_state/empty_chat_list.dart';
 import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import '../pages/chat_page.dart';
@@ -77,9 +78,7 @@ class _ChatListPageState extends State<ChatListPage> {
             return const Center(child: CircularProgressIndicator());
           }
           if (chatProvider.chats.isEmpty) {
-            return const Center(
-              child: Text('No chats yet.\nStart a new conversation!'),
-            );
+            return const EmptyChatList();
           }
           return ListView.builder(
             itemCount: chatProvider.chats.length,
